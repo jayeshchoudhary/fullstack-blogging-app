@@ -15,7 +15,7 @@ const blogSchema = new mongoose.Schema(
             required: true,
         },
     },
-    { versionKey: false, timestamps: true }
+    { versionKey: false, timestamps: { createdAt: true, updatedAt: true } }
 );
 
 module.exports = mongoose.model("Blog", blogSchema);
