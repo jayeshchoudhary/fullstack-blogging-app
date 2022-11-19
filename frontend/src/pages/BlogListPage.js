@@ -51,36 +51,45 @@ export const BlogListPage = () => {
                 </Button>
             </Grid>
 
-            {allBlogs.map((blog, index) => (
-                <Grid item key={index} lg={4} md={6} xs={12}>
-                    <Card variant="outlined">
-                        <CardHeader
-                            title={blog.title}
-                            subheader={blog.createdAt}
-                        />
+            {(!allBlogs || allBlogs === []) && (
+                <Typography>No Blogs Available</Typography>
+            )}
 
-                        <CardContent>{blog.description}</CardContent>
+            {!(!allBlogs || allBlogs === []) &&
+                allBlogs.map((blog, index) => (
+                    <Grid item key={index} lg={4} md={6} xs={12}>
+                        <Card variant="outlined">
+                            <CardHeader
+                                title={blog.title}
+                                subheader={new Date(
+                                    blog.createdAt
+                                ).toDateString()}
+                            />
 
-                        <CardActions
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                padding: 16,
-                            }}
-                        >
-                            <Typography>3 min read</Typography>
+                            <CardContent>{blog.description}</CardContent>
 
-                            <Button
-                                variant="outlined"
-                                endIcon={<ChevronRightIcon />}
-                                onClick={() => handleReadMoreClick(blog._id)}
+                            <CardActions
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    padding: 16,
+                                }}
                             >
-                                Read More
-                            </Button>
-                        </CardActions>
-                    </Card>
-                </Grid>
-            ))}
+                                <Typography>3 min read</Typography>
+
+                                <Button
+                                    variant="outlined"
+                                    endIcon={<ChevronRightIcon />}
+                                    onClick={() =>
+                                        handleReadMoreClick(blog._id)
+                                    }
+                                >
+                                    Read More
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
         </Grid>
     );
 };
