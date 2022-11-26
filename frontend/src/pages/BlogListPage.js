@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
+    Box,
     Button,
     Card,
     CardActions,
@@ -51,11 +52,23 @@ export const BlogListPage = () => {
                 </Button>
             </Grid>
 
-            {(!allBlogs || allBlogs === []) && (
-                <Typography>No Blogs Available</Typography>
+            {(!allBlogs || allBlogs.length === 0) && (
+                <Box
+                    style={{
+                        display: "flex",
+                        height: "300px",
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="h5" textAlign="center">
+                        No Blogs Available
+                    </Typography>
+                </Box>
             )}
 
-            {!(!allBlogs || allBlogs === []) &&
+            {!(!allBlogs || allBlogs.length === 0) &&
                 allBlogs.map((blog, index) => (
                     <Grid item key={index} lg={4} md={6} xs={12}>
                         <Card variant="outlined">

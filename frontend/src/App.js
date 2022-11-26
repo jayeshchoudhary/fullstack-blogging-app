@@ -15,7 +15,7 @@ export const App = () => {
                 <BlogRoutes />
             </Container>
 
-            <ToastContainer autoClose={4000} />
+            <ToastContainer position="top-center" autoClose={4000} />
         </React.Fragment>
     );
 };

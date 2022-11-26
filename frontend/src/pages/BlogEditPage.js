@@ -1,7 +1,40 @@
-import React from "react";
+import { Paper } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BlogForm } from "../components/BlogForm";
 
 export const BlogEditPage = () => {
-    // navigate("/blog/list")
+    const navigate = useNavigate();
+    const [blogData, setBlogData] = useState({});
 
-    return <div>BlogEditPage</div>;
+    const { blogId } = useParams();
+
+    const fetchBlogDetails = async () => {
+        const response = await axios.get(`/api/blog/${blogId}`);
+        const blogData = response.data;
+
+        setBlogData(blogData);
+    };
+
+    const editBlogPost = async (data) => {
+        try {
+            const response = await axios.put(`/api/blog/${blogId}`, data);
+            navigate(`/blog/${response.data._id}/details`);
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data || "Error occurred");
+        }
+    };
+
+    useEffect(() => {
+        fetchBlogDetails();
+    }, []);
+
+    return (
+        <Paper variant="outlined" style={{ padding: 24 }}>
+            <BlogForm data={blogData} onSubmit={editBlogPost} />
+        </Paper>
+    );
 };
